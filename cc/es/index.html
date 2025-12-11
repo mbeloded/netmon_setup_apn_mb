@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Netmon – Setup APN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .accordion {
+            --bs-accordion-active-color: #000;
+            --bs-accordion-active-bg: #f0f0f0;
+
+        }
+
+        .accordion:after {
+            background-color: white;
+        }
+
+        html,
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .navbar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #E30613;
+        }
+
+        .colored {
+            color: #E30613;
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 700px;
+            }
+        }
+
+        .hr-text {
+            line-height: 1rem;
+            position: relative;
+            outline: 0;
+            border: 0;
+            color: #666;
+            text-align: center;
+            height: 1.5rem;
+            opacity: 1;
+        }
+
+        .hr-text:after {
+            content: attr(data-content);
+            position: relative;
+            display: inline-block;
+            color: #666;
+            padding: 0 .5em;
+            line-height: 1.5rem;
+            color: #666;
+            background-color: #fff;
+            font-size: .8rem;
+            text-transform: uppercase;
+        }
+
+        .hr-text:before {
+            content: '';
+            background: #666;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, .8);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn {
+            --bs-btn-border-radius: 0;
+        }
+
+        .btn-secondary {
+            --bs-btn-bg: #000000;
+            --bs-btn-border-color: #000000;
+            --bs-btn-hover-bg: #000000;
+            --bs-btn-hover-border-color: #000000;
+            --bs-btn-active-bg: #000000;
+            --bs-btn-active-border-color: #000000;
+            --bs-btn-disabled-bg: #000000;
+            --bs-btn-disabled-border-color: #000000;
+        }
+
+        .alert a {
+            color: inherit;
+        }
+
+        .alert .link {
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 10px 25px 10px rgba(0, 0, 0, 3%);
+            border-radius: 1.5rem;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .step .step-title {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border-radius: .75rem;
+            display: inline-block;
+            font-size: .875rem;
+        }
+
+        .step ul {
+            padding: 0;
+            margin: 0;
+            font-size: .875rem;
+        }
+
+        .step ul li {
+            list-style-type: none;
+        }
+
+        .step img {
+            border-radius: .75rem;
+        }
+
+        .step.final {
+            border: none;
+            font-size: .875rem;
+            box-shadow: none;
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: .75rem;
+        }
+
+        .video {
+            top: 80px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            box-shadow: 10px 25px 10px rgba(0, 0, 0, 3%);
+            border-radius: .5rem;
+            z-index: 1000;
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .carousel-indicators {
+            position: static;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .carousel-indicators [data-bs-target] {
+            text-indent: 0;
+            text-align: left;
+            min-width: 300px;
+            height: auto;
+            margin: 0 15px;
+            padding: 0;
+            border: 0;
+            display: block;
+            font-size: .875rem;
+        }
+
+        .carousel-item__transcription {
+            width: 100%;
+            padding: 20px 30px;
+            background-color: #f0f0f0;
+            border-radius: .75rem;
+            display: inline-block;
+            font-size: .875rem;
+            margin-top: 10px;
+        }
+
+        .carousel-item__transcription h2 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-item__transcription h3,
+        .carousel-item__transcription p {
+            font-size: .875rem;
+        }
+
+        .carousel-item__transcription p:last-child {
+            margin-bottom: 0;
+        }
+
+        .carousel-item__transcription h3 {
+            font-weight: bold;
+        }
+
+        .carousel-control-next,
+        .carousel-control-prev {
+            position: static;
+            background: red;
+            padding: 8px 5px;
+            border-radius: 360px;
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            margin-bottom: 5px;
+        }
+
+        .carousel-control-next {
+            float: right;
+            margin-left: 5px;
+        }
+
+        .carousel-control-prev {
+            float: right;
+        }
+
+        .carousel-control-next .carousel-control-next-icon,
+        .carousel-control-prev .carousel-control-prev-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar sticky-top">
+        <div class="container-fluid d-flex justify-content-center">
+            <a class="navbar-brand me-0 d-flex align-items-center" href="#">
+                <img alt="Logo Netmon" height="40" class="d-inline-block" src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/logo-vodafone.svg" />
+                <span class="navbar-title ms-2 d-flex align-items flex-column">
+                    <span class="fs-6 text-uppercase text-muted d-block" style="line-height:normal;">Netmon</span> 
+                    <span style="line-height:1;" class="fs-4">Configurar APN</span>
+                </span>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="text-center pt-3">
+            <h1 class="fw-semibold h2"><span class="colored">Configura el APN en tu móvil.</span></span><br>Elige la guía adecuada para tu dispositivo.</h1>
+        </section>
+        <section class="mt-5">
+            <div class="accordion" id="accordion_config">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseIOS" aria-expanded="false" aria-controls="collapseIOS">
+                            Siga las instrucciones de configuración para iOS (iPhone).
+                        </button>
+                    </h2>
+                    <div id="collapseIOS" class="accordion-collapse collapse" data-bs-parent="#accordion_config">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <!-- <div class="col-md-6">
+                                    <div class="video sticky-top">
+                                        <div style="padding:177.78% 0 0 0;position:relative;">
+                                            <iframe
+                                                src="https://player.vimeo.com/video/1055598937?h=c95efebecb&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                                                frameborder="0" allow="autoplay; clipboard-write; encrypted-media"
+                                                style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                                                title="iOS APN Setup 9:16"></iframe>
+                                        </div>
+                                        <script src="https://player.vimeo.com/api/player.js"></script>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="step">
+                                        <span class="step-title">1. Ve a <b>Configuración</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/ios/cc/es/impostazioni.png" class="img-fluid" alt="Entra in Impostazioni">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">2. Ve a <b>Móvil</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/ios/cc/es/cellulare.png" class="img-fluid"
+                                            alt="Entra in Rete dati cellulare">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">3. Acceder a <b>Red de Datos Celulares</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/ios/cc/es/rete-dati-cellulare.png" class="img-fluid"
+                                            alt="Entra in Rete dati cellulare">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title"><span class="d-block">4. <b>Modifica</b> el APN de "Datos celulares" y "Hotspot personal" a netmon.vf.es</span></span>
+                                        </span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/ios/cc/es/apn-config.png" class="img-fluid"
+                                            alt="Entra in Rete dati cellulare">
+                                    </div>
+                                    <div class="step final">
+                                        <strong>¡Bien hecho! 🎉</strong><br>
+                                        El APN de tu teléfono ya está configurado, tanto para la navegación móvil como para el punto de acceso.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseSAMSUNG" aria-expanded="false" aria-controls="collapseSAMSUNG">
+                            Siga las instrucciones de configuración para Android/Samsung.
+                        </button>
+                    </h2>
+                    <div id="collapseSAMSUNG" class="accordion-collapse collapse" data-bs-parent="#accordion_config">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <!-- <div class="col-md-6">
+                                    <div class="video sticky-top">
+                                        <video width="100%" controls>
+                                            <source src="samsung.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="step">
+                                        <span class="step-title">1. Ve a <b>Configuración</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/impostazioni.jpg" class="img-fluid"
+                                            alt="Entra in Impostazioni">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">2. Ve a <b>Conexiones</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/connessioni.jpg" class="img-fluid"
+                                            alt="Entra in Rete dati cellulare">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">3. Ve a <b>Redes Móviles</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/reti-mobili.jpg" class="img-fluid"
+                                            alt="Entra in Rete dati cellulare">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">4. Ve a <b>Perfiles</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/profili.jpg" class="img-fluid"
+                                            alt="Entra in Rete dati cellulare">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title"><span class="d-block">5. Modifique el punto de acceso APN existente configurando los siguientes parámetros.</span>
+                                            <ul>
+                                                <li><small>Nombre: Puedes dejarlo sin cambios</small></li>
+                                                <li><small>APN: netmon.vf.es</small></li>
+                                                <li><small>Tipo de APN: default,supl,xcap,dun (Atención, sin espacios entre los distintos parámetros)</small></li>
+                                            </ul>
+                                        </span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/profili-2.jpg" class="img-fluid mb-2"
+                                            alt="Modifica APN primo passaggio">
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/profili-3.jpg" class="img-fluid mb-2"
+                                            alt="Modifica APN secondo passaggio">
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/profili-4.jpg" class="img-fluid"
+                                            alt="Modifica APN terzo passaggio">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">6. Guarda los cambios pulsando los tres puntos de la esquina superior derecha y seleccionando <b>Guardar.</b></span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/salvataggio.jpg" class="img-fluid mb-2"
+                                            alt="Salvataggio modifiche primo passaggio">
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/salvataggio-2.jpg" class="img-fluid"
+                                            alt="Salvataggio modifiche secondo passaggio">
+                                    </div>
+                                    <div class="step">
+                                        <span class="step-title">7. Elimina todos los demás APN de tu teléfono, excepto del de MMS.</span>
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/eliminazione-apn.jpg" class="img-fluid mb-2"
+                                            alt="Salvataggio modifiche primo passaggio">
+                                        <img src="https://technacy-dashboard-assets.s3.eu-central-1.amazonaws.com/setup-apn/assets/samsung/cc/es/eliminazione-apn-2.jpg" class="img-fluid"
+                                            alt="Salvataggio modifiche secondo passaggio">
+                                    </div>
+                                    <div class="step final">
+                                        <strong>¡Bien hecho! 🎉</strong><br>
+                                        El APN de tu teléfono ya está configurado, tanto para la navegación móvil como para el punto de acceso.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-4 text-body-secondary"><small><strong>¿Qué es un APN?</strong><br>El APN (Access Point Name) es un punto de acceso para una red de telecomunicaciones y permite la transferencia de datos.</small></p>
+        </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
